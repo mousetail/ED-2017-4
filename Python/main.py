@@ -23,6 +23,6 @@ try:
 
 	while 1:
 		conn, addr = s.accept()
-		print 'Connected with ' + addr[0] + ':" + str(addr[1])
+		print 'Connected with ' + addr[0] + ':' + str(addr[1])
 finally:
 	s.close()

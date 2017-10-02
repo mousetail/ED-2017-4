@@ -43,13 +43,13 @@ void setup() {
 
   SERIAL_PORT_HARDWARE.println("");
   writeToUsb();
-  SERIAL_PORT_HARDWARE.println("mount dev/sdb1 /usbstick");
+  SERIAL_PORT_HARDWARE.println("mount dev/sdb1 /usbstick 2>>error1.txt");
   writeToUsb();
-  SERIAL_PORT_HARDWARE.println("cd /usbstick");
+  SERIAL_PORT_HARDWARE.println("cd /usbstick 2>>error2.txt");
   writeToUsb();
-  SERIAL_PORT_HARDWARE.println("/bin/ash update.sh");
+  SERIAL_PORT_HARDWARE.println("/bin/ash update.sh 2>> error3.txt");
   writeToUsb();
-  SERIAL_PORT_HARDWARE.println("python /usbstick/Python/main.py 2>> error.txt");
+  SERIAL_PORT_HARDWARE.println("python /usbstick/Python/main.py 2>> error4.txt");
 
   writeToUsb();
 }
