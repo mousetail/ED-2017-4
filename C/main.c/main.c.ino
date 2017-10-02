@@ -39,9 +39,26 @@ void setup() {
   SERIAL_PORT_USBVIRTUAL.begin(115200);  // open serial connection via USB-Serial
   SERIAL_PORT_HARDWARE.begin(linuxBaud); // open serial connection to Linux
 
+  while (SERIAL_PORT_HARDWARE.read() >= 0);
+
   SERIAL_PORT_HARDWARE.println("");
+  writeToUsb();
   SERIAL_PORT_HARDWARE.println("mount dev/sdb1 /usbstick");
-  SERIAL_PORT_HARDWARE.println("/usbstick/python/main.py");
+  writeToUsb();
+  SERIAL_PORT_HARDWARE.println("cd /usbstick");
+  writeToUsb();
+  SERIAL_PORT_HARDWARE.println("/bin/ash update.sh");
+  writeToUsb();
+  SERIAL_PORT_HARDWARE.println("python /usbstick/Python/main.py 2>> error.txt");
+
+  writeToUsb();
+}
+
+void writeToUsb() {
+  int c;
+  while ((c = SERIAL_PORT_HARDWARE.read()) != -1){
+    SERIAL_PORT_USBVIRTUAL.write(c);
+  }
 }
 
 
