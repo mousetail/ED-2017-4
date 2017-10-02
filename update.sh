@@ -1,6 +1,7 @@
 #!/bin/sh
-rm -rf .
+rm -rf ./*
 curl -l -k https://codeload.github.com/mousetail/ED-2017-4/zip/master > archive.zip
 unzip archive.zip -d .
-mv myprojectname-master .
+mv ED-2017-4-master/* .
+rm ED-2017-4-master -r 
 rm -f archive.zip
