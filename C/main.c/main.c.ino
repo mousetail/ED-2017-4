@@ -39,8 +39,9 @@ void setup() {
   SERIAL_PORT_USBVIRTUAL.begin(115200);  // open serial connection via USB-Serial
   SERIAL_PORT_HARDWARE.begin(linuxBaud); // open serial connection to Linux
 
-  SERIAL_PORT_HARDWARE.print("mount dev/sdb1 /usbstick");
-  SERIAL_PORT_HARDWARE.print("/usbstick/python/main.py");
+  SERIAL_PORT_HARDWARE.println("");
+  SERIAL_PORT_HARDWARE.println("mount dev/sdb1 /usbstick");
+  SERIAL_PORT_HARDWARE.println("/usbstick/python/main.py");
 }
 
 
