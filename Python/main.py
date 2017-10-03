@@ -33,7 +33,9 @@ try:
 	s.listen(1) #maximum one connection
 
 	while 1:
-		if GetChar(False) == "#":
+		char = GetChar(False):
+		print repr(char);
+		if (char == "#"):
 			break
 		conn, addr = s.accept()
 		print 'Connected with ' + addr[0] + ':' + str(addr[1])
