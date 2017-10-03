@@ -33,8 +33,8 @@ try:
 	s.listen(1) #maximum one connection
 
 	while 1:
-		char = GetChar(False):
-		print repr(char);
+		char = GetChar(False)
+		print repr(char)
 		if (char == "#"):
 			break
 		conn, addr = s.accept()
