@@ -32,11 +32,12 @@ try:
 
 	s.listen(1) #maximum one connection
 	while True:
-		readable, writable, errored = select.select(read_list, [], [])
 		c = GetChar(False);
 		print repr(c)
 		if (c == "#"):
+			print ("clean shutdown on #")
 			break;
+		readable, writable, errored = select.select(read_list, [], [], 0.1) #timeout of 0.1 seconds
 		for r in readable:
 			if r is s:
 				client_socket, address = s.accept()
