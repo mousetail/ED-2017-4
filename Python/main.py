@@ -39,6 +39,11 @@ try:
 		if (c == "#"):
 			print ("clean shutdown on #")
 			break;
+		elif (c == "%"):
+			print ("reloading image on %")
+			f=open("/root/test.png")
+			content = f.read()
+			f.close()
 		readable, writable, errored = select.select(read_list, [], [], 0.1) #timeout of 0.1 seconds
 		for r in readable:
 			if r is s:
