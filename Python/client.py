@@ -21,11 +21,12 @@ try:
 				print bytes, "bytes read"
 		
 			f.write(t)
-			if bytes == length:
+			if bytes >= length:
 				break
 		else:
 			if t==';':
 				length = int(length)
+				print "length:", length
 				lengthGot = True
 			else:
 				length += t

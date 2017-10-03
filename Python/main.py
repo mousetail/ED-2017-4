@@ -50,7 +50,7 @@ try:
 				client_socket, address = s.accept()
 				read_list.append(client_socket)
 				print "Connection from", address
-				cleint_socket.send(str(len(content)))
+				client_socket.send(str(len(content)))
 				client_socket.send(";")
 				client_socket.send(content)
 			else:
