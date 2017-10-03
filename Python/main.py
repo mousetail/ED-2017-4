@@ -1,7 +1,18 @@
 #!python
 
+print "Engeneering design group 4"
+print "Version 0.0.5"
+print "Python version 2.7"
+print "__________________________"
+
+def GetChar(Block=True): #only works on linux
+  if Block or select.select([sys.stdin], [], [], 0) == ([sys.stdin], [], []):
+    return sys.stdin.read(1)
+  raise error('NoChar')
+
 import socket
 import sys
+import select
 HOST = ''
 PORT = 1024
 
@@ -22,6 +33,8 @@ try:
 	s.listen(1) #maximum one connection
 
 	while 1:
+		if GetChar(False) == "#":
+			break
 		conn, addr = s.accept()
 		print 'Connected with ' + addr[0] + ':' + str(addr[1])
 finally:
