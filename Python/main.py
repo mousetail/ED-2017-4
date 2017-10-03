@@ -34,6 +34,7 @@ try:
 	while True:
 		readable, writable, errored = select.select(read_list, [], [])
 		c = GetChar(False);
+		print repr(c)
 		if (c == "#"):
 			break;
 		for r in readable:
@@ -42,9 +43,13 @@ try:
 				read_list.append(client_socket)
 				print "Connection from", address
 			else:
-				data = r.recv(1024)
-				if data:
-					r.send(data)
+				try:
+					data = r.recv(1024)
+					if data:
+						r.send(data)
+				except socket.error:
+					print "disconnected"
+					read_list.remove(r)
 finally:
 	for r in read_list:
 		r.close()
