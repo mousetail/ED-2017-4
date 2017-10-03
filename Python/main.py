@@ -16,6 +16,10 @@ import select
 HOST = ''
 PORT = 1024
 
+f=open("/root/test.png")
+content=f.read()
+f.close()
+
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 read_list=[s]
 try:
@@ -27,13 +31,11 @@ try:
 	except:
 		print 'Error:', str(msg[0])
 		print msg[1]
-
 	print ("Socket bound")
 
 	s.listen(1) #maximum one connection
 	while True:
 		c = GetChar(False);
-		print repr(c)
 		if (c == "#"):
 			print ("clean shutdown on #")
 			break;
@@ -43,6 +45,7 @@ try:
 				client_socket, address = s.accept()
 				read_list.append(client_socket)
 				print "Connection from", address
+				client_socket.write(content)
 			else:
 				try:
 					data = r.recv(1024)

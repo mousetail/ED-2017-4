@@ -7,28 +7,37 @@ void setup() {
   SERIAL_PORT_HARDWARE.begin(linuxBaud); // open serial connection to Linux
 
   delay(1000);
-  writeToUsb(true);
-  SERIAL_PORT_HARDWARE.println("##?");
+  writeToUsb(true); //1
+  SERIAL_PORT_HARDWARE.println("##?"); //shut down any existing python instance
   delay(100);
-  writeToUsb(true);
-  SERIAL_PORT_HARDWARE.println("ls");
+  writeToUsb(true); //2
+  SERIAL_PORT_HARDWARE.println("ls --color=never");
+  delay(200);
+  writeToUsb(true); //3
+  SERIAL_PORT_HARDWARE.println("curl http://arduino.cc/asciilogo.txt"); //Check for internet connection
+  writeToUsb(true); //4
   delay(250);
-  writeToUsb(true);
-  SERIAL_PORT_HARDWARE.println("mount dev/sdb1 /usbstick 2>>error1.txt");
-  delay(250);
-  writeToUsb(true);
+  writeToUsb(true); //5
   SERIAL_PORT_HARDWARE.println("cd /usbstick 2>>error2.txt");
   delay(250);
-  writeToUsb(true);
+  writeToUsb(true);//6
   SERIAL_PORT_HARDWARE.println("/bin/ash update.sh 2>> error3.txt");
   delay(250);
-  writeToUsb(true);
+  writeToUsb(true);//7
   SERIAL_PORT_HARDWARE.println("ifconfig");
   delay(250);
-  writeToUsb(true);
+  writeToUsb(true);//8
   SERIAL_PORT_HARDWARE.println("python /usbstick/Python/main.py 2>> error4.txt");
 
-  writeToUsb(true);
+  writeToUsb(true);//9
+}
+
+int getChar(){
+  int c = SERIAL_PORT_HARDWARE.read();
+  while (c >= 128 || (13 < c && c < 32)){
+    c = SERIAL_PORT_HARDWARE.read(); 
+  }
+  return c;
 }
 
 void writeToUsb(bool firstChar) {
@@ -40,14 +49,14 @@ void writeToUsb(bool firstChar) {
     SERIAL_PORT_USBVIRTUAL.print("[");
     SERIAL_PORT_USBVIRTUAL.print(linenumber);
     SERIAL_PORT_USBVIRTUAL.print("]");
-    c = SERIAL_PORT_HARDWARE.read();
+    c = getChar();
     if (c!=-1){
       SERIAL_PORT_USBVIRTUAL.print("[");
       SERIAL_PORT_USBVIRTUAL.write(c);
       SERIAL_PORT_USBVIRTUAL.print("]");
     }
   }
-  while ((c = SERIAL_PORT_HARDWARE.read()) != -1){
+  while ((c = getChar()) != -1){
     SERIAL_PORT_USBVIRTUAL.write(c);
   }
 }
@@ -61,7 +70,7 @@ void loop() {
   }
 
   // copy from UART to USB-CDC
-  c = SERIAL_PORT_HARDWARE.read();          // read from UART
+  c = getChar();          // read from UART
   if (c != -1) {                            // got anything?
     SERIAL_PORT_USBVIRTUAL.write(c);        //    write to USB-CDC
   }

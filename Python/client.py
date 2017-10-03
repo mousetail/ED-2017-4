@@ -4,6 +4,11 @@ try:
 
 	serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	serversocket.connect((ip, 1024))
-	clientsocket.send('hello')
+	#serversocket.send('hello')
+	
+	f = open("f.jpg")
+	while True:
+		f.write(serversocket.read())
 finally:
+	f.close()
 	raw_input()
