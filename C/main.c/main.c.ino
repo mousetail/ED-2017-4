@@ -7,7 +7,9 @@ void setup() {
   SERIAL_PORT_HARDWARE.begin(linuxBaud); // open serial connection to Linux
 
   delay(1000);
-
+  SERIAL_PORT_HARDWARE.println("##?");
+  delay(100);
+  writeToUsb(true);
   SERIAL_PORT_HARDWARE.println("ls");
   delay(250);
   writeToUsb(true);

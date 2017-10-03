@@ -8,7 +8,7 @@ print "__________________________"
 def GetChar(Block=True): #only works on linux
   if Block or select.select([sys.stdin], [], [], 0) == ([sys.stdin], [], []):
     return sys.stdin.read(1)
-  raise error('NoChar')
+  return ''
 
 import socket
 import sys
