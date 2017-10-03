@@ -16,10 +16,6 @@ import select
 HOST = ''
 PORT = 1024
 
-f=open("/root/test.png")
-content=f.read()
-f.close()
-
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 read_list=[s]
 try:
@@ -39,24 +35,25 @@ try:
 		if (c == "#"):
 			print ("clean shutdown on #")
 			break;
-		elif (c == "%"):
-			print ("reloading image on %")
-			f=open("/root/test.png")
-			content = f.read()
-			f.close()
 		readable, writable, errored = select.select(read_list, [], [], 0.1) #timeout of 0.1 seconds
 		for r in readable:
 			if r is s:
 				client_socket, address = s.accept()
 				read_list.append(client_socket)
 				print "Connection from", address
+				f=open("/root/test.png")
+				content = f.read()
+				f.close()
 				client_socket.send(str(len(content)))
 				client_socket.send(";")
 				client_socket.send(content)
 			else:
 				try:
 					data = r.recv(1024)
+					
+				
 					if data:
+					
 						r.send(data)
 				except socket.error:
 					print "disconnected"

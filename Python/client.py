@@ -11,7 +11,7 @@ try:
 	lengthGot=False
 	#serversocket.send('hello')
 	print ("opening file...")
-	f = open("f.jpg", "w")
+	f = open("f.raw", "w")
 	bytes = 0
 	while True:
 		t=serversocket.recv(1)
@@ -36,3 +36,4 @@ except:
 finally:
 	
 	f.close()
+	
