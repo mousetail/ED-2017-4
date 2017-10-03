@@ -17,7 +17,7 @@ HOST = ''
 PORT = 1024
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
+read_list=[s]
 try:
 	print ("Socket opened")
 
@@ -31,13 +31,20 @@ try:
 	print ("Socket bound")
 
 	s.listen(1) #maximum one connection
-
-	while 1:
-		char = GetChar(False)
-		print repr(char)
-		if (char == "#"):
-			break
-		conn, addr = s.accept()
-		print 'Connected with ' + addr[0] + ':' + str(addr[1])
+	while True:
+		readable, writable, errored = select.select(read_list, [], [])
+		c = GetChar(False);
+		if (c == "#"):
+			break;
+		for r in readable:
+			if r is s:
+				client_socket, address = s.accept()
+				read_list.append(client_socket)
+				print "Connection from", address
+			else:
+				data = r.recv(1024)
+				if data:
+					r.send(data)
 finally:
-	s.close()
+	for r in read_list:
+		r.close()
