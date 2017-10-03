@@ -1,7 +1,7 @@
 #!python
 
 print "Engeneering design group 4"
-print "Version 0.0.5"
+print "Version 0.0.7"
 print "Python version 2.7"
 print "__________________________"
 
@@ -45,7 +45,7 @@ try:
 				client_socket, address = s.accept()
 				read_list.append(client_socket)
 				print "Connection from", address
-				client_socket.write(content)
+				client_socket.send(content)
 			else:
 				try:
 					data = r.recv(1024)
