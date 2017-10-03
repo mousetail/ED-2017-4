@@ -41,7 +41,7 @@ try:
 				client_socket, address = s.accept()
 				read_list.append(client_socket)
 				print "Connection from", address
-				f=open("/root/test.png")
+				f=open("/root/test.png", "rb")
 				content = f.read()
 				f.close()
 				client_socket.send(str(len(content)))
