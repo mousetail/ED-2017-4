@@ -27,7 +27,7 @@ try:
 
 	#bind socket to post
 	try:
-		s.bind((HOST, PORT))
+		msg = s.bind((HOST, PORT))
 	except:
 		print 'Error:', str(msg[0])
 		print msg[1]
