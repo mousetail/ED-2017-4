@@ -57,8 +57,9 @@ try:
 						if "/" not in filename and ".." not in filename:
 							try:
 								print "sending",repr(filename),
-								f=open("root/"+filename, "rb")
+								f=open("/root/"+filename, "rb")
 								content=f.read()
+								assert len(content)!=0
 								f.close()
 								r.send(str(len(content))+";"+content)
 							except IOError:
