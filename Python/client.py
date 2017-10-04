@@ -10,7 +10,7 @@ def downloadFile(socket, name):
 	f = open(name, "w")
 	bytes = 0
 	while True:
-		t=serversocket.recv(1)
+		t=socket.recv(1)
 		if lengthGot:
 			bytes+=len(t)
 			if (bytes%1000==0):
@@ -34,9 +34,9 @@ try:
 	serversocket.connect((ip, 1024))
 	#serversocket.send('hello')
 	
-	downloadFile("test.png")
-	downloadFile("test.jpg")
-	downloadFile("test.raw")
+	downloadFile(serversocket, "test.png")
+	downloadFile(serversocket, "test.jpg")
+	downloadFile(serversocket, "test.raw")
 	
 except:
 	traceback.print_exception(*sys.exc_info())
