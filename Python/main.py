@@ -37,6 +37,8 @@ try:
 		if (c == "#"):
 			print ("clean shutdown on #")
 			break;
+		elif (c == "^"):
+			print ("current name: ", name)
 		readable, writable, errored = select.select(read_list, [], [], 0.1) #timeout of 0.1 seconds
 		for r in readable:
 			if r is s:
