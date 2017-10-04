@@ -1,17 +1,13 @@
 import socket
 import traceback
 import sys
-try:
-	ip = raw_input()
 
-	serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	serversocket.connect((ip, 1024))
-	
+def downloadFile(socket, name):
 	length=""
 	lengthGot=False
-	#serversocket.send('hello')
 	print ("opening file...")
-	f = open("f.raw", "w")
+	socket.send(name+";")
+	f = open(name, "w")
 	bytes = 0
 	while True:
 		t=serversocket.recv(1)
@@ -30,6 +26,18 @@ try:
 				lengthGot = True
 			else:
 				length += t
+
+try:
+	ip = raw_input()
+
+	serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	serversocket.connect((ip, 1024))
+	#serversocket.send('hello')
+	
+	downloadFile("test.png")
+	downloadFile("test.jpg")
+	downloadFile("test.raw")
+	
 except:
 	traceback.print_exception(*sys.exc_info())
 	raw_input()

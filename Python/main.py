@@ -12,12 +12,14 @@ def GetChar(Block=True): #only works on linux
 
 import socket
 import sys
+import traceback
 import select
 HOST = ''
 PORT = 1024
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 read_list=[s]
+name=""
 try:
 	print ("Socket opened")
 
@@ -41,20 +43,27 @@ try:
 				client_socket, address = s.accept()
 				read_list.append(client_socket)
 				print "Connection from", address
-				f=open("/root/test.png", "rb")
-				content = f.read()
-				f.close()
 				client_socket.send(str(len(content)))
 				client_socket.send(";")
 				client_socket.send(content)
 			else:
 				try:
 					data = r.recv(1024)
-					
-				
-					if data:
-					
-						r.send(data)
+					name+=data
+					if (";" in name):
+						pos=name.index(";")
+						filename = name[:pos]
+						name=name[pos+1:]
+						
+						if "/" not in filename and ".." not in filename:
+							try:
+								print "sending",repr(filename)
+								f=open("~/"+filename, "rb")
+								r.send(str(len(f))+";"+f.read())
+								f.close()
+							except IOError:
+								r.send("0;")
+								traceback.print_exception(*sys.exc_info())
 				except socket.error:
 					print "disconnected"
 					read_list.remove(r)
