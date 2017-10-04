@@ -13,10 +13,6 @@ void setup() {
   writeToUsb(true); //2
   SERIAL_PORT_HARDWARE.println("ls --color=never");
   delay(200);
-  writeToUsb(true); //3
-  SERIAL_PORT_HARDWARE.println("curl http://arduino.cc/asciilogo.txt"); //Check for internet connection
-  writeToUsb(true); //4
-  delay(250);
   writeToUsb(true); //5
   SERIAL_PORT_HARDWARE.println("cd /usbstick 2>>error2.txt");
   delay(250);

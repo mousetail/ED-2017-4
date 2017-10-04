@@ -1,6 +1,6 @@
 import pygame
 
-f=open("f.raw", "rb" )
+f=open("test.raw", "rb" )
 data=f.read()
 f.close()
 
@@ -25,7 +25,7 @@ offset = len(data) - (resolution[0] * resolution[1] *2)
 print "data length: ", len(data), "expected:",coord((resolution[0]-1,resolution[1]-1))+2
 
 assert len(data)>=coord((resolution[0]-1,resolution[1]-1))+2, (len(data),
-                                coord(resolution[0]-1,resolution[1])+2)
+                                coord((resolution[0]-1,resolution[1]))+2)
 
 screen=pygame.display.set_mode((resolution[0],resolution[1]+50))
 pygame.init()

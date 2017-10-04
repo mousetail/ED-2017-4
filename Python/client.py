@@ -24,6 +24,9 @@ def downloadFile(socket, name):
 				length = int(length)
 				print "length:", length
 				lengthGot = True
+				bytes = 0
+				if (length == 0):
+					break
 			else:
 				length += t
 
