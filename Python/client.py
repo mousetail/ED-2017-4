@@ -8,27 +8,31 @@ def downloadFile(socket, name):
 	print ("opening file...")
 	socket.send(name+";")
 	f = open(name, "w")
-	bytes = 0
-	while True:
-		t=socket.recv(1)
-		if lengthGot:
-			bytes+=len(t)
-			if (bytes%1000==0):
-				print bytes, "bytes read"
-		
-			f.write(t)
-			if bytes >= length:
-				break
-		else:
-			if t==';':
-				length = int(length)
-				print "length:", length
-				lengthGot = True
-				bytes = 0
-				if (length == 0):
+	try:
+		bytes = 0
+		while True:
+			t=socket.recv(1)
+			if lengthGot:
+				bytes+=len(t)
+				if (bytes%1000==0):
+					print bytes, "bytes read"
+			
+				f.write(t)
+				if bytes >= length:
 					break
 			else:
-				length += t
+				if t==';':
+					length = int(length)
+					print "length:", length
+					lengthGot = True
+					bytes = 0
+					if (length == 0):
+						break
+				else:
+					length += t
+					print(length)
+	finally:
+		f.close()
 
 try:
 	ip = raw_input()
@@ -44,7 +48,4 @@ try:
 except:
 	traceback.print_exception(*sys.exc_info())
 	raw_input()
-finally:
-	
-	f.close()
 	

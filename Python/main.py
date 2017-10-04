@@ -55,15 +55,15 @@ try:
 						if "/" not in filename and ".." not in filename:
 							try:
 								print "sending",repr(filename),
-								f=open("~/"+filename, "rb")
+								f=open("root/"+filename, "rb")
 								content=f.read()
 								f.close()
 								r.send(str(len(content))+";"+content)
 							except IOError:
 								r.send("0;")
 								traceback.print_exception(*sys.exc_info())
-					elif name!="":
-						print name
+						else:
+							print ("filename",filename)
 				except socket.error:
 					print "disconnected"
 					read_list.remove(r)
