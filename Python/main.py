@@ -1,9 +1,9 @@
 #!python
 
 print "Engeneering design group 4"
-print "Version 0.0.8"
+print "Version 0.0.9"
 print "Python version 2.7"
-print "__________________________"
+print "__________________________" #427531
 
 def GetChar(Block=True): #only works on linux
   if Block or select.select([sys.stdin], [], [], 0) == ([sys.stdin], [], []):
@@ -26,9 +26,10 @@ try:
 	#bind socket to post
 	try:
 		msg = s.bind((HOST, PORT))
-	except:
-		print 'Error:', str(msg[0])
-		print msg[1]
+	except socket.error as ex:
+		print 'Error:', str(ex)
+		print ex
+		sys.exit(1)
 	print ("Socket bound")
 
 	s.listen(1) #maximum one connection
@@ -61,6 +62,7 @@ try:
 								content=f.read()
 								assert len(content)!=0
 								f.close()
+								print "(length",len(content),")"
 								r.send(str(len(content))+";"+content)
 							except IOError:
 								r.send("0;")

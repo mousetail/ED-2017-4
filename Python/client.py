@@ -30,7 +30,6 @@ def downloadFile(socket, name):
 						break
 				else:
 					length += t
-					print(length)
 	finally:
 		f.close()
 
@@ -44,6 +43,7 @@ try:
 	downloadFile(serversocket, "test.png")
 	downloadFile(serversocket, "test.jpg")
 	downloadFile(serversocket, "test.raw")
+	downloadFile(serversocket, "usbdata.txt")
 	
 except:
 	traceback.print_exception(*sys.exc_info())
